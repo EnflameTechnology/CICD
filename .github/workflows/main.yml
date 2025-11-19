@@ -1,17 +1,29 @@
 # .github/workflows/main.yml
 name: S60 Test
 
-on: [push]
+on: 
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: S60
     # 或者指定标签
     # runs-on: [self-hosted, linux, x64]
     
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout 
+      uses: actions/checkout@v4
     
-    - name: Test on S60
+    - name: Build
       run: |
-        echo "Running on S60 runner"
+        set -x
+        echo "Now start to build"
+
+    - name: Test
+      run: |
+        set -x
+        echo "Now start to test"
+        
