@@ -1,0 +1,17 @@
+# .github/workflows/main.yml
+name: S60 Test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: S60
+    # 或者指定标签
+    # runs-on: [self-hosted, linux, x64]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Test on S60
+      run: |
+        echo "Running on S60 runner"
