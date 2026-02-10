@@ -8,6 +8,7 @@ on:
     branches: [ main ]
 
 jobs:
+
   build-and-test:
     runs-on: S60
     # 或者指定标签
@@ -16,7 +17,13 @@ jobs:
     steps:
     - name: Checkout 
       uses: actions/checkout@v4
-    
+      with:
+        fetch-depth: 0  # 需要完整的git历史来比较变更
+
+    - name: Run static code analysis
+      run: |
+        sudo docker run --rm -v $(pwd):/app -v $(pwd):/sast -u $(id -u):$(id -g) -w /app registry-egc.enflame-tech.com/enflame/ci_sast:v1.0-os bash -c 'cd /app && python3 /sast/run.py --all_ci_check'
+
     - name: Build
       run: |
         set -x
